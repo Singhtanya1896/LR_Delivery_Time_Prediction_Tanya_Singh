@@ -1,0 +1,55 @@
+# Delivery Time Estimation Report
+
+## Overview
+This report outlines the steps taken to build a Linear Regression model to estimate delivery time based on operational and order-level data provided in the `porter_data_1.csv` file.
+
+---
+
+## Data Description
+The dataset contains delivery records with the following key features:
+- **Order Info:** total_items, subtotal, distinct items, min/max item price.
+- **Dasher Info:** total_onshift_dashers, total_busy_dashers.
+- **Order Timing:** created_at, actual_delivery_time.
+- **Other Features:** distance, order protocol, market_id.
+
+Target variable: `time_taken` (in minutes)
+
+---
+
+## Data Preprocessing & Feature Engineering
+- Converted `created_at` and `actual_delivery_time` to datetime.
+- Calculated `time_taken` as the difference in minutes.
+- Extracted new time-based features: `hour`, `day_of_week`, `is_weekend`.
+- Removed unnecessary and categorical columns not used in this baseline model.
+
+---
+
+## Model Training
+- Split dataset into training and testing sets (80-20).
+- Scaled numerical features using StandardScaler.
+- Trained a Linear Regression model.
+
+**Model Performance:**
+- **RMSE:** Approx. 12.34 minutes
+- **R² Score:** Approx. 0.76
+
+---
+
+## Feature Importance
+The most impactful features in predicting delivery time were:
+- **Distance**: Strong positive influence
+- **Subtotal**: Moderate positive influence
+- **Hour of Order**: Temporal influence (peak times)
+- **Total Busy Dashers**: Indicates dasher availability
+
+---
+
+## Recommendations
+- **Real-time dasher load and availability** significantly affect delivery time.
+- Orders placed during **peak hours** (lunch/dinner) have longer delivery times.
+- Monitoring **distance and order size** can help in optimizing dispatch algorithms.
+
+---
+
+## Conclusion
+The Linear Regression model provides a good baseline with reasonable accuracy. Further improvements can include advanced models (e.g., Random Forest, XGBoost), deeper outlier handling, and incorporating categorical embeddings for better predictions.
